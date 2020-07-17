@@ -4,14 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function App() {
   return (
+    <NavBar />
+  );
+}
+
+function NavBar(props) {
+  return (
     <nav className="navbar">
       <div className="slider">
-        <NavSection grow={0} rotate>
-          <NavLink icon={['fas', 'ellipsis-h']} />
+        <NavSection icons>
+          <NavItem icon={['fas', 'ellipsis-h']} />
         </NavSection>
-        <NavSection grow={1}>
-          <NavLink icon={['fas', 'user-circle']} anchor="javascript:alert('user');" />
-          <NavLink icon={['fas', 'cogs']} anchor="javascript:alert('settings');" />
+        <NavSection buttons>
+          <NavButton icon={['fas', 'user-circle']} title="Account" action="javascript:alert(0);" />
+          <NavButton icon={['fas', 'cogs']} title="Page Settings" action="javascript:alert(0);" />
         </NavSection>
       </div>
     </nav>
@@ -20,24 +26,26 @@ function App() {
 
 function NavSection(props) {
   return (
-    <div className={"nav-section" + (props.rotate ? " rotate" : "")} style={{ flexGrow: props.grow }}>{props.children}</div>
+    <div className={"nav-section"
+      + (props.buttons ? " nav-button-container" : "")
+      + (props.icons ? " nav-item-container" : "")}> { props.children }</div >
   );
 }
 
-function NavLink(props) {
-  if (!props.anchor) {
-    return (
-      <span className="nav-link-container">
-        <NavIcon name={props.icon} />
-      </span>
-    )
-  }
-
+function NavButton(props) {
   return (
-    <span className="nav-link-container">
-      <a className="nav-link" href={props.anchor}>
+    <span className="nav-button">
+      <button title={props.title} onClick={function () { eval(props.action); }}>
         <NavIcon name={props.icon} />
-      </a>
+      </button>
+    </span>
+  )
+}
+
+function NavItem(props) {
+  return (
+    <span className="nav-item">
+      <NavIcon name={props.icon} />
     </span>
   )
 }

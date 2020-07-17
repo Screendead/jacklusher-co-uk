@@ -21,9 +21,10 @@ body {
   flex-direction: row-reverse;
 
   width: 100%;
+  overflow: hidden;
 }
 
-.navbar .slider {
+.navbar > .slider {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -40,7 +41,15 @@ body {
   height: var(--nav-height);
 }
 
-.nav-link-container {
+.nav-item-container {
+  flex-grow: 0;
+}
+
+.nav-button-container {
+  flex-grow: 1;
+}
+
+.nav-button, .nav-item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +57,17 @@ body {
   width: var(--nav-height);
 }
 
-.nav-link, .nav-icon {
+.nav-button button {
+  width: calc(var(--nav-height) * 0.75);
+  height: calc(var(--nav-height) * 0.75);
+
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,22 +78,23 @@ body {
   border-radius: 50%;
 }
 
-.nav-link {
-  width: calc(var(--nav-height) - var(--nav-padding) * 2);
-  height: calc(var(--nav-height) - var(--nav-padding) * 2);
-
-  cursor: pointer;
-}
-
 @media (hover: hover) {
-  .navbar .slider {
+  .navbar {
+    opacity: 0.25;
+  }
+
+  .navbar:hover {
+    opacity: 1;
+  }
+
+  .navbar > .slider {
     width: var(--nav-height);
 
     border-radius: calc(var(--nav-height) * 0.5);
     border-top-right-radius: var(--nav-padding);
   }
 
-  .navbar:hover .slider {
+  .navbar:hover > .slider {
     width: 100%;
 
     border-radius: var(--nav-padding);
@@ -84,23 +104,21 @@ body {
             box-shadow: var(--nav-shad);
   }
 
-  .navbar .nav-section:not(.rotate) {
+  .navbar .nav-button-container {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease-in-out;
   }
 
-  .navbar:hover .nav-section:not(.rotate) {
+  .navbar:hover .nav-button-container {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.4s ease-in-out;
   }
 
-  .navbar:hover .rotate {
+  .navbar:hover .nav-section > .nav-item {
     transform: rotate(-90deg);
   }
 
-  .nav-link:hover {
+  .nav-button button:hover {
     background: var(--ac-high);
   }
 }
@@ -120,13 +138,13 @@ body {
     display: none;
   }
 
-  .nav-link:active {
+  .nav-button:active {
     background: var(--ac-high);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   * {
-    transition: 0.4s ease-in-out;
+    transition: 0.2s ease-in-out;
   }
 }
