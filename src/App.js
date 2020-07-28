@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './App.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faEllipsisH, faUserCircle, faCogs, faSpaceShuttle } from '@fortawesome/free-solid-svg-icons'
+
+const NavBar = lazy(() => import('./components/NavBar'));
+const NavSection = lazy(() => import('./components/NavSection'));
+const NavItem = lazy(() => import('./components/NavItem'));
+const NavButton = lazy(() => import('./components/NavButton'));
+const Header = lazy(() => import('./components/Header'));
+const HeaderIcon = lazy(() => import('./components/HeaderIcon'));
+const Content = lazy(() => import('./components/Content'));
+const Options = lazy(() => import('./components/Options'));
+const Option = lazy(() => import('./components/Option'));
+const Feature = lazy(() => import('./components/Feature'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
   // First we get the viewport height and we multiply it by 1% to get a value for a vh unit
@@ -11,144 +24,51 @@ function App() {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   return (
-    <div className="page-container">
-      <NavBar>
-        <NavSection icons>
-          <NavItem icon={['fas', 'ellipsis-h']} />
-        </NavSection>
-        <NavSection buttons>
-          <NavButton icon={['fas', 'user-circle']} title="Account" action={() => alert('Account Info')} />
-          <NavButton icon={['fas', 'cogs']} title="Page Settings" action={() => alert('Settings')} />
-        </NavSection>
-      </NavBar>
-      <Header>
-        <HeaderIcon name={['fas', 'space-shuttle']} />
-        <h1 className="header__title">Stratospheric</h1>
-        <h2 className="header__subtitle">Get yourself some rocket fuel.</h2>
-      </Header>
-      <Content>
-        <Options>
-          <Option title="Level 1" />
-          <Option title="Level 2" />
-          <Option title="Level 3" />
-        </Options>
-      </Content>
-      <Footer>
+    <Suspense fallback={(<p>Loading...</p>)}>
+      <div className="page-container">
+        <NavBar>
+          <NavSection icons>
+            <NavItem icon={faEllipsisH} />
+          </NavSection>
+          <NavSection buttons>
+            <NavButton icon={faUserCircle} title="Account" action={() => alert('Account Info')} />
+            <NavButton icon={faCogs} title="Page Settings" action={() => alert('Settings')} />
+          </NavSection>
+        </NavBar>
+        <Header>
+          <HeaderIcon name={faSpaceShuttle} />
+          <h1 className="header__title">Stratospheric</h1>
+          <h2 className="header__subtitle">Get yourself some rocket fuel.</h2>
+        </Header>
+        <Content>
+          <Options>
+            <Option title="Level 1" subtitle="Personal">
+              <Feature content="Action taken on your request within 2 working days" />
+              <Feature content="Solution within 10 working days" />
+              <Feature content="Contact 10:00-17:00 Monday-Friday" />
+              <Feature content="Email + phone support" />
+              <Feature content="Support for personal blogs" />
+            </Option>
+            <Option title="Level 2" subtitle="eCommerce">
+              <Feature content="Action on your request within 1 working day" />
+              <Feature content="Solution within 5 working days" />
+              <Feature content="Priority contact from 09:00-19:00 Monday-Saturday" />
+              <Feature content="Support for eCommerce sites" />
+            </Option>
+            <Option title="Level 3" subtitle="Bespoke">
+              <Feature content="Immediate action on urgent requests" />
+              <Feature content="Solution within 24h" />
+              <Feature content="Mon-Sun emergency phone support" />
+              <Feature content="Video call support via Skype or Zoom (for screen-sharing etc.)" />
+              <Feature content="Tailored service to meet your site's needs" />
+            </Option>
+          </Options>
+        </Content>
+        <Footer>
 
-      </Footer>
-    </div>
-  );
-}
-
-function Icon(props) {
-  return (
-    <span className="icon">
-      <FontAwesomeIcon icon={props.name} />
-    </span>
-  );
-}
-
-function NavBar(props) {
-  return (
-    <nav className="navbar">
-      <div className="navbar__nav-slider">{props.children}</div>
-    </nav>
-  );
-}
-
-function NavSection(props) {
-  return (
-    <ul className={"navbar__nav-section"
-      + (props.buttons ? " navbar__nav-button-container" : "")
-      + (props.icons ? " navbar__nav-item-container" : "")}> { props.children }</ul>
-  );
-}
-
-function NavButton(props) {
-  return (
-    <span className="navbar__nav-button">
-      <button title={props.title} onClick={props.action}>
-        <NavIcon name={props.icon} />
-      </button>
-    </span>
-  );
-}
-
-function NavItem(props) {
-  return (
-    <span className="navbar__nav-item">
-      <NavIcon name={props.icon} />
-    </span>
-  );
-}
-
-function NavIcon(props) {
-  return (
-    <span className="navbar__nav-icon">
-      <Icon name={props.name}></Icon>
-    </span>
-  );
-}
-
-function Header(props) {
-  return (
-    <div className="header">
-      <span className="header__title-inner">{props.children}</span>
-      <DownNav />
-    </div>
-  );
-}
-
-function HeaderIcon(props) {
-  return (
-    <span className="header__title-icon">
-      <Icon name={props.name}></Icon>
-    </span>
-  );
-}
-
-function DownNav() {
-  return (
-    <div className="down-nav">
-      <button className="down-nav__button" onClick={() => window.scrollTo(0, window.innerHeight)}>
-        <HeaderIcon name={['fas', 'arrow-down']}></HeaderIcon>
-      </button>
-    </div>
-  );
-}
-
-function Content(props) {
-  return (
-    <div className="content">
-      {props.children}
-    </div>
-  );
-}
-
-function Options(props) {
-  return (
-    <div className="options">
-      {props.children}
-    </div>
-  );
-}
-
-function Option(props) {
-  return (
-    <span className="options__option">
-      <h3 className="options__option__title">{props.title}</h3>
-    </span>
-  );
-}
-
-function Footer(props) {
-  return (
-    <div className="footer">
-      {props.children}
-      <div className="footer__copyright">
-        Copyright © 2020 JL Digital
+        </Footer>
       </div>
-    </div>
+    </Suspense>
   );
 }
 

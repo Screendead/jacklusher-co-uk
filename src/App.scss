@@ -55,7 +55,7 @@ a {
   width: 10px;
 
   &-track {
-    background: $bg-col;
+    background: $footer-col;
   }
 
   &-thumb {
@@ -202,8 +202,8 @@ a {
 }
 
 .content {
-  padding-top: $nav-height * 1.2;
-  padding-bottom: $nav-height * 1.2;
+  padding-top: $nav-height * 1.5;
+  padding-bottom: $nav-height * 1.5;
 }
 
 .options {
@@ -224,7 +224,12 @@ a {
 
     text-align: center;
 
-    &__title {
+    &__title-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
       height: 10vh;
       margin: 0;
 
@@ -232,14 +237,49 @@ a {
       $option-col-1 0%,
       $option-col-2 100%);
       color: $txt-col;
-      font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: 0vw;
 
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      line-height: 10vh;
       // clip-path: url(#wave);
+
+      .options__option__title {
+        margin: 0px;
+        padding: 0px;
+
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 0vw;
+      }
+
+      .options__option__subtitle {
+        margin: 0px;
+        padding: 0px;
+
+        font-size: 1.25rem;
+        font-weight: 400;
+        letter-spacing: 0vw;
+      }
+    }
+
+    &__features-container {
+      margin: 3vmin;
+    }
+
+    &__features {
+      padding: 0;
+
+      font-size: 1.25vw;
+      list-style-type: none;
+
+      &__feature {
+        text-align: center;
+        margin-bottom: 2.5vh;
+
+        background: linear-gradient(90deg, $option-col-1 0%, $option-col-2 100%);
+        background-clip: initial;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 }
@@ -344,10 +384,8 @@ a {
   }
 
   .options {
-    margin-top: 5vh;
-    
     &__option {
-      height: 50vh;
+      min-height: 50vh;
 
       margin-bottom: 5vh;
       margin-left: 2vw;
@@ -356,9 +394,9 @@ a {
       &:hover {
         box-shadow: $hover-shad;
         transform: scale(1.01);
+        filter: hue-rotate(90deg);
 
-        .options__option__title{
-          filter: hue-rotate(90deg);
+        .options__option__title-container {
           letter-spacing: 0.5vw;
         }
       }
@@ -423,9 +461,9 @@ a {
   }
 
   .options {
-    margin-top: calc(var(--vh) * 5);
-    
     &__option {
+      min-height: calc(var(--vh) * 50);
+
       margin-bottom: calc(var(--vh) * 5);
       margin-left: calc(var(--vw) * 2);
       margin-right: calc(var(--vw) * 2);
@@ -444,6 +482,12 @@ a {
 
       margin: 0 calc(var(--vw) * 5);
       margin-bottom: calc(var(--vh) * 5);
+
+      &__features {
+        padding: 0;
+  
+        font-size: 3.25vh;
+      }
     }
   }
 } 
