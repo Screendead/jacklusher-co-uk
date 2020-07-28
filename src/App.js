@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function App() {
   // First we get the viewport height and we multiply it by 1% to get a value for a vh unit
-  let vh = window.innerHeight * 0.01;
+  let vw = document.documentElement.clientWidth * 0.01;
+  let vh = document.documentElement.clientHeight * 0.01;
   // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vw', `${vw}px`);
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   return (
@@ -15,27 +17,32 @@ function App() {
           <NavItem icon={['fas', 'ellipsis-h']} />
         </NavSection>
         <NavSection buttons>
-          <NavButton icon={['fas', 'user-circle']} title="Account" action="javascript:alert('Account Info');" />
-          <NavButton icon={['fas', 'cogs']} title="Page Settings" action="javascript:alert('Settings');" />
+          <NavButton icon={['fas', 'user-circle']} title="Account" action={() => alert('Account Info')} />
+          <NavButton icon={['fas', 'cogs']} title="Page Settings" action={() => alert('Settings')} />
         </NavSection>
       </NavBar>
       <Header>
         <HeaderIcon name={['fas', 'space-shuttle']} />
         <h1 className="header__title">Stratospheric</h1>
-        <h2 className="header__subtitle">Time to get yourself some rocket fuel.</h2>
+        <h2 className="header__subtitle">Get yourself some rocket fuel.</h2>
       </Header>
       <Content>
-        
+        <Options>
+          <Option title="Level 1" />
+          <Option title="Level 2" />
+          <Option title="Level 3" />
+        </Options>
       </Content>
+      <Footer>
+
+      </Footer>
     </div>
   );
 }
 
 function Icon(props) {
   return (
-    <span className={"icon"
-      + (props.decorative ? " icon--decorative" : "")
-      + (props.functional ? " icon--functional" : "")}>
+    <span className="icon">
       <FontAwesomeIcon icon={props.name} />
     </span>
   );
@@ -60,7 +67,7 @@ function NavSection(props) {
 function NavButton(props) {
   return (
     <span className="navbar__nav-button">
-      <button title={props.title} onClick={function () { eval(props.action); }}>
+      <button title={props.title} onClick={props.action}>
         <NavIcon name={props.icon} />
       </button>
     </span>
@@ -114,6 +121,33 @@ function Content(props) {
   return (
     <div className="content">
       {props.children}
+    </div>
+  );
+}
+
+function Options(props) {
+  return (
+    <div className="options">
+      {props.children}
+    </div>
+  );
+}
+
+function Option(props) {
+  return (
+    <span className="options__option">
+      <h3 className="options__option__title">{props.title}</h3>
+    </span>
+  );
+}
+
+function Footer(props) {
+  return (
+    <div className="footer">
+      {props.children}
+      <div className="footer__copyright">
+        Copyright © 2020 JL Digital
+      </div>
     </div>
   );
 }
