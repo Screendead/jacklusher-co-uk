@@ -63,10 +63,19 @@ a {
     $header-col-1 0%,
     $header-col-2 100%);
   }
+}
 
-  &:horizontal {
-    display: none;
-  }
+.loader {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  
+  z-index: 2;
+  
+  background: linear-gradient(180deg,
+      $header-col-1 0%,
+      $header-col-2 100%);
 }
 
 .icon {
@@ -262,10 +271,17 @@ a {
     }
 
     &__features-container {
-      margin: 3vmin;
+      margin-left: 3vh;
+      margin-right: 3vh;
     }
 
     &__features {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      height: 100%;
+
       padding: 0;
 
       font-size: 1.25vw;
@@ -273,12 +289,47 @@ a {
 
       &__feature {
         text-align: center;
-        margin-bottom: 2.5vh;
+        // margin-bottom: 2.5vh;
 
         background: linear-gradient(90deg, $option-col-1 0%, $option-col-2 100%);
         background-clip: initial;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+      }
+    }
+
+    &__cta-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+
+      height: 10vh;
+    }
+
+    &__cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      width: 40%;
+
+      background: linear-gradient(90deg,
+      $option-col-1 0%,
+      $option-col-2 100%);
+      color: $txt-col;
+
+      border-radius: 10px;
+      font-size: 1.25vw;
+
+      &:active {
+        color: $txt-col;
+      }
+
+      .icon, &__text {
+        display: inline;
       }
     }
   }
@@ -385,8 +436,6 @@ a {
 
   .options {
     &__option {
-      min-height: 50vh;
-
       margin-bottom: 5vh;
       margin-left: 2vw;
       margin-right: 2vw;
@@ -399,6 +448,10 @@ a {
         .options__option__title-container {
           letter-spacing: 0.5vw;
         }
+      }
+
+      &__cta:hover {
+        color: $txt-col;
       }
     }
   }
@@ -462,11 +515,27 @@ a {
 
   .options {
     &__option {
-      min-height: calc(var(--vh) * 50);
-
       margin-bottom: calc(var(--vh) * 5);
       margin-left: calc(var(--vw) * 2);
       margin-right: calc(var(--vw) * 2);
+    }
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .options {
+    &__option {
+      &__features-container {
+        height: 30vh;
+      }
+      
+      &__features, &__cta {
+        font-size: 1.25vw;
+      }
+
+      &__cta {
+        height: 5vh;
+      }
     }
   }
 }
@@ -478,15 +547,24 @@ a {
     &__option {
       display: block;
       width: initial;
-      min-height: calc(var(--vh) * 100 - (#{$nav-height} * 2));
 
       margin: 0 calc(var(--vw) * 5);
       margin-bottom: calc(var(--vh) * 5);
 
+      &__features-container {
+        height: calc(var(--vh) * 100 - #{$nav-height} - 40vh);
+      }
+
+      &__features, &__cta {
+        font-size: 3vh;
+      }
+
       &__features {
         padding: 0;
-  
-        font-size: 3.25vh;
+      }
+
+      &__cta {
+        height: 75%;
       }
     }
   }
@@ -494,6 +572,6 @@ a {
 
 @media (prefers-reduced-motion: no-preference) {
   body * {
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
   }
 }

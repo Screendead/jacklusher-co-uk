@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { lazy } from 'react';
+
+const CTAButton = lazy(() => import('./CTAButton'));
 
 function Option(props) {
   return (
@@ -9,6 +11,9 @@ function Option(props) {
       </div>
       <div className="options__option__features-container">
         <ul className="options__option__features">{props.children}</ul>
+      </div>
+      <div className="options__option__cta-container">
+        <CTAButton subject={`Enquiry RE: ${props.title} - ${props.subtitle}`}></CTAButton>
       </div>
     </span>
   );
