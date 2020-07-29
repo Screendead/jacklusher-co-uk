@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 
-const Icon = lazy(() => import("./Icon"));
+const Icon = lazy(() => import('./Icon'));
 
 function HeaderIcon(props) {
   return (

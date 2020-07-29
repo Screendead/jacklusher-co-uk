@@ -37,6 +37,10 @@ $hover-shad: 0px ($hover-shift * 2) 20px -10px rgba(0, 0, 0, 0.5); /* General ho
   }
 }
 
+html, body, .root {
+  overflow-x: hidden;
+}
+
 body {
   background: $bg-col;
 }
@@ -52,17 +56,7 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-
-  &-track {
-    background: $footer-col;
-  }
-
-  &-thumb {
-    background: linear-gradient(180deg,
-    $header-col-1 0%,
-    $header-col-2 100%);
-  }
+  display: none;
 }
 
 .loader {
@@ -160,13 +154,28 @@ a {
       $header-col-2 100%);
   color: $txt-col;
 
+  .sketch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    background: transparent;
+  }
+
+  :not(.sketch) {
+    z-index: 1;
+  }
+
   &__title, &__subtitle {
     margin: 0.25rem;
+    font-weight: 300;
   }
 
   &__title {
     font-size: 10vmin;
-    font-weight: 300;
     letter-spacing: 1vw;
 
     animation: stretch 1000ms ease-out;
@@ -181,7 +190,6 @@ a {
 
   &__subtitle {
     font-size: 4vmin;
-    font-weight: 200;
   }
 
   &__title-icon {

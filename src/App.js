@@ -24,7 +24,7 @@ function App() {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   return (
-    <Suspense fallback={(<div class="loader"></div>)}>
+    <Suspense fallback={(<div className="loader"></div>)}>
       <div className="page-container">
         <NavBar>
           <NavSection icons>

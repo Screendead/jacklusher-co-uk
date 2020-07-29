@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 
-const NavIcon = lazy(() => import("./NavIcon"));
+const NavIcon = lazy(() => import('./NavIcon'));
 
 function NavItem(props) {
   return (
