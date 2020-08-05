@@ -24,7 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-const ClosurePlugin = require('closure-webpack-plugin');
+// const ClosurePlugin = require('closure-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -221,6 +221,14 @@ module.exports = function(webpackEnv) {
               // Pending further investigation:
               // https://github.com/terser-js/terser/issues/120
               inline: 2,
+              dead_code: true,
+              toplevel: true,
+              arguments: true,
+              drop_console: true,
+              hoist_funs: true,
+              keep_fargs: false,
+              keep_infinity: true,
+              passes: 2,
             },
             mangle: {
               safari10: true,
@@ -650,14 +658,14 @@ module.exports = function(webpackEnv) {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
-        isEnvProduction &&
-          new ClosurePlugin({
-            platform: 'native',
-            // mode: 'AGGRESSIVE_BUNDLE',
-            mode: 'STANDARD',
-          }, {
-            // compilation_level: 'ADVANCED'
-          }),
+        // isEnvProduction &&
+        //   new ClosurePlugin({
+        //     platform: 'native',
+        //     // mode: 'AGGRESSIVE_BUNDLE',
+        //     mode: 'STANDARD',
+        //   }, {
+        //     // compilation_level: 'ADVANCED'
+        //   }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.

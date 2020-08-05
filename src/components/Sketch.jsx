@@ -15,6 +15,8 @@ class Sketch extends React.Component {
       p.setup = () => {
         p.createCanvas(w, h, p.WEBGL);
         p.angleMode(p.DEGREES);
+        
+        p.perspective(90, w / h, 0.1, 1000);
   
         let count = 4;
         let size = Math.min(w, h);
@@ -24,13 +26,11 @@ class Sketch extends React.Component {
   
           boxes.push(new Box(
             p,
-            x, y, -size / 2,
+            x, y, 0,
             size / 6,
             size / 6,
             size / 6,
-            Math.random() * 360,
-            Math.random() * 360,
-            Math.random() * 360
+            w, h,
           ));
         }
       }
@@ -58,13 +58,13 @@ class Sketch extends React.Component {
 }
 
 class Box {
-  constructor(p, x, y, z, w, h, d, rx, ry) {
+  constructor(p, x, y, z, w, h, d, sw, sh) {
     this.pos = p.createVector(x, y, z);
     this.w = w;
     this.h = h;
     this.d = d;
-    this.rx = rx;
-    this.ry = ry;
+    this.sw = sw;
+    this.sh = sh;
   }
 
   render(p) {
@@ -74,8 +74,9 @@ class Box {
     p.specularMaterial(255, 0, 76);
     p.push();
       p.translate(this.pos);
-      p.rotateX(this.rx + x);
-      p.rotateY(this.ry + x);
+      p.rotateX(p.noise(this.pos.x * 1000 + x / 100) * 1000);
+      p.rotateY(p.noise(this.pos.y * 1000 + x / 100) * 1000);
+      p.rotateZ(p.noise(this.pos.z * 1000 + x / 100) * 1000);
       p.box(this.w, this.h, this.d);
     p.pop();
   }

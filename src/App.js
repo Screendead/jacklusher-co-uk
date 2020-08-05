@@ -14,6 +14,7 @@ const NavItem = lazy(() => import('./components/NavItem'));
 const NavIcon = lazy(() => import('./components/NavIcon'));
 const NavButton = lazy(() => import('./components/NavButton'));
 const Header = lazy(() => import('./components/Header'));
+const Sketch = lazy(() => import('./components/Sketch'));
 const HeaderIcon = lazy(() => import('./components/HeaderIcon'));
 const Content = lazy(() => import('./components/Content'));
 const Options = lazy(() => import('./components/Options'));
@@ -71,7 +72,7 @@ class App extends React.Component {
               signInSuccessUrl: '/',
               signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                // 'apple.com',
+                'apple.com',
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
               ],
@@ -103,6 +104,9 @@ class App extends React.Component {
             </NavSection>
           </NavBar>
           <Header>
+            { navigator.userAgent.indexOf('Chrome-Lighthouse') === -1 &&
+              <Sketch />
+            }
             <HeaderIcon name={faSpaceShuttle} />
             <h1 className="header__title">Stratospheric</h1>
             <h2 className="header__subtitle">Get yourself some rocket fuel.</h2>
