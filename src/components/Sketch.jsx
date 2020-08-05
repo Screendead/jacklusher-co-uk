@@ -6,43 +6,42 @@ class Sketch extends React.Component {
     super(props);
 
     this.reference = React.createRef();
-  }
-
-  sketch = (p) => {
-    const w = document.documentElement.style.getPropertyValue('--vw').replace('px', '') * 100;
-    const h = document.documentElement.style.getPropertyValue('--vh').replace('px', '') * 100;
-
-    let boxes = []; 
+    this.sketch = (p) => {
+      const w = document.documentElement.style.getPropertyValue('--vw').replace('px', '') * 100;
+      const h = document.documentElement.style.getPropertyValue('--vh').replace('px', '') * 100;
   
-    p.setup = () => {
-      p.createCanvas(w, h, p.WEBGL);
-      p.angleMode(p.DEGREES);
-
-      let count = 4;
-      let size = Math.min(w, h);
-      for (let i = 0; i < count; i++) {
-        let x = Math.sin((i / count) * Math.PI * 2 + Math.PI / 4) * w / 2;
-        let y = Math.cos((i / count) * Math.PI * 2 + Math.PI / 4) * h / 2;
-
-        boxes.push(new Box(
-          p,
-          x, y, -size / 2,
-          size / 6,
-          size / 6,
-          size / 6,
-          Math.random() * 360,
-          Math.random() * 360,
-          Math.random() * 360
-        ));
+      let boxes = []; 
+    
+      p.setup = () => {
+        p.createCanvas(w, h, p.WEBGL);
+        p.angleMode(p.DEGREES);
+  
+        let count = 4;
+        let size = Math.min(w, h);
+        for (let i = 0; i < count; i++) {
+          let x = Math.sin((i / count) * Math.PI * 2 + Math.PI / 4) * w / 2;
+          let y = Math.cos((i / count) * Math.PI * 2 + Math.PI / 4) * h / 2;
+  
+          boxes.push(new Box(
+            p,
+            x, y, -size / 2,
+            size / 6,
+            size / 6,
+            size / 6,
+            Math.random() * 360,
+            Math.random() * 360,
+            Math.random() * 360
+          ));
+        }
       }
-    }
-
-    p.draw = () => {
-      p.background(0, 0, 0, 0);
-      
-      p.lights();
-      for (let box of boxes) {
-        box.render(p);
+  
+      p.draw = () => {
+        p.background(0, 0, 0, 0);
+        
+        p.lights();
+        for (let box of boxes) {
+          box.render(p);
+        }
       }
     }
   }

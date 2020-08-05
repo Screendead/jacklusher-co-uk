@@ -13,7 +13,7 @@ function Option(props) {
         <ul className="options__option__features">{props.children}</ul>
       </div>
       <div className="options__option__cta-container">
-        <CTAButton subject={`Enquiry RE: ${props.title} - ${props.subtitle}`}></CTAButton>
+        <CTAButton subject={`Enquiry RE: ${props.title} - ${props.subtitle}`}>£{props.price}/mo</CTAButton>
       </div>
     </span>
   );
