@@ -1,6 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import * as firebase from 'firebase/app';
+import 'firebase/analytics';
+import 'firebase/performance';
 import 'firebase/auth';
+import 'firebaseui';
 
 import './App.scss';
 import { faEllipsisH, faUserCircle, faUserAstronaut, faSignOutAlt, faCogs, faSpaceShuttle, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +25,22 @@ const Options = lazy(() => import('./components/Options'));
 const Option = lazy(() => import('./components/Option'));
 const Feature = lazy(() => import('./components/Feature'));
 const Footer = lazy(() => import('./components/Footer'));
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDXipDtVoi6fdY7k8mhxTlaF60m7aS41O8",
+  authDomain: "jacklusher.firebaseapp.com",
+  databaseURL: "https://jacklusher.firebaseio.com",
+  projectId: "jacklusher",
+  storageBucket: "jacklusher.appspot.com",
+  messagingSenderId: "973424570945",
+  appId: "1:973424570945:web:ca51407f3bee9e4c2d0cc0",
+  measurementId: "G-8Z8KLM2M3S"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.performance();
+firebase.analytics();
 
 class App extends React.Component {
   constructor(props) {
