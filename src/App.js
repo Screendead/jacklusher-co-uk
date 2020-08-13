@@ -3,11 +3,12 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 import './App.scss';
-import { faEllipsisH, faUserCircle, faCogs, faSpaceShuttle, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faUserCircle, faUserAstronaut, faSignOutAlt, faCogs, faSpaceShuttle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const StyledFirebaseAuth = lazy(() => import('react-firebaseui/StyledFirebaseAuth'));
 
 const ProfilePicture = lazy(() => import('./components/ProfilePicture'));
+const Icon = lazy(() => import('./components/Icon'));
 const NavBar = lazy(() => import('./components/NavBar'));
 const NavSection = lazy(() => import('./components/NavSection'));
 const NavItem = lazy(() => import('./components/NavItem'));
@@ -37,6 +38,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.auth.onAuthStateChanged(user => this.setState({ loggedIn: !!user }));
+
+    window.location.search.indexOf('mode=select') !== -1 &&
+      this.setState({ userModal: true });
   }
 
   render() {
@@ -47,22 +51,37 @@ class App extends React.Component {
         <div className="user-modal__content user-modal__content--logged-in">
           <div className="user-modal__content__heading">
             <div className="user-modal__content__heading__user">
-              <span className="user-modal__content__heading__user__photo">
-                <ProfilePicture source={this.auth.currentUser.photoURL} />
-              </span>
-              <h4 className="user-modal__content__heading__user__name">{this.auth.currentUser.displayName}</h4>
+              { this.auth.currentUser.photoURL ? (
+                  <span className="user-modal__content__heading__user__photo">
+                    <ProfilePicture source={this.auth.currentUser.photoURL} />
+                  </span>
+                ) : (
+                  <span className="user-modal__content__heading__user__icon">
+                    <Icon name={faUserAstronaut}></Icon>
+                  </span>
+                )
+              }
+              <h4 className="user-modal__content__heading__user__name">{this.auth.currentUser.displayName || "Anonymous User"}</h4>
             </div>
-            <button className="user-modal__content__heading__exit" onClick={() => this.setState({ userModal: false })}>
-              <HeaderIcon name={faTimes} />
+            <button className="user-modal__content__heading__exit button" title="Close" onClick={() => this.setState({ userModal: false })}>
+              <Icon name={faTimes} />
             </button>
           </div>
-          <button title="logout" onClick={() => this.auth.signOut()}>Sign Out</button>
+          <div className="user-modal__content__sign-out-container">
+            <button className="user-modal__content__sign-out button" title="Sign Out" onClick={() => this.auth.signOut()}>
+              <span className="user-modal__content__sign-out__text">Sign Out&nbsp;&nbsp;</span>
+              <Icon name={faSignOutAlt} />
+            </button>
+          </div>
         </div>
       );
 
       detailsButton = (
         <button className="navbar__nav-button__button" title="User Details" onClick={() => this.setState({userModal: true})}>
-          <ProfilePicture source={this.auth.currentUser.photoURL} />
+          { this.auth.currentUser.photoURL ?
+            <ProfilePicture source={this.auth.currentUser.photoURL} />
+            : <NavIcon name={faUserAstronaut} />
+          }
         </button>
       );
     } else {
@@ -77,7 +96,10 @@ class App extends React.Component {
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
               ],
               signInFlow: 'popup',
-            }} />
+          }} />
+          <button className="user-modal__content__close button" title="Cancel" onClick={() => this.setState({userModal: false})}>
+            <Icon name={faTimes} />
+          </button>
         </div>
       );
 
@@ -135,9 +157,7 @@ class App extends React.Component {
               </Option>
             </Options>
           </Content>
-          <Footer>
-
-          </Footer>
+          <Footer></Footer>
         </div>
       </Suspense>
     );

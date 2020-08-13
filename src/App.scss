@@ -45,6 +45,15 @@ $hover-shad: 0px ($hover-shift * 2) 20px -10px rgba(0, 0, 0, 0.5); /* General ho
   }
 }
 
+@keyframes unblur {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
 html, body, .root {
   overflow-x: hidden;
 }
@@ -81,14 +90,43 @@ a {
 }
 
 .profile-photo {
-  width: 100%;
-  height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  width: 80%;
+  height: 80%;
+  min-width: 80%;
+  min-height: 80%;
+  max-width: 80%;
+  max-height: 80%;
 
   border-radius: 50%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 5vmin;
+  height: 5vmin;
+
+  padding: 0;
+
+
+  background: linear-gradient(90deg,
+  $option-col-1 0%,
+  $option-col-2 100%);
+  color: $txt-col;
+
+  color: $contrast-col-1;
+  border: none;
+
+  box-shadow: $box-shad;
+
+  border-radius: 2.5vmin;
+  font-size: 1.25vw;
+  // font-size: 3vmin;
+  line-height: 3vmin;
+
+  cursor: pointer;
 }
 
 .icon {
@@ -148,6 +186,10 @@ a {
 
   &__nav-button {
     &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       width: $nav-height * 0.75;
       height: $nav-height * 0.75;
 
@@ -219,44 +261,57 @@ a {
 
         width: 100%;
 
-        &__photo, &__name {
+        &__photo, &__icon, &__name {
           margin-top: 0;
           margin-bottom: 0;
         }
 
-        &__photo {
+        &__photo, &__icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           width: 10vh;
           height: 10vh;
 
-          border: 5px solid $ac-col;
+          // border: 5px solid $ac-col;
           border-radius: 50%;
+        }
+
+        &__icon {
+          background: linear-gradient(90deg, $option-col-1 0%, $option-col-2 100%);
+          color: $contrast-col-1;
+
+          font-size: 7vmin;
+          
+          overflow: hidden;
         }
 
         &__name {
           @include fancyText;
 
-          margin-left: 5vh;
+          margin-left: 2vh;
 
           font-size: 5vmin;
         }
       }
 
       &__exit {
-        background: none;
-        color: $ac-col;
-        border: none;
-
-        cursor: pointer;
-
-        .icon {
-          width: 10vh;
-          height: 10vh;
-        }
-
-        &:hover {
-          color: $ac-high;
-        }
+        align-self: start;
       }
+    }
+
+    &__close {
+      margin-top: 1vmin;
+    }
+
+    &__sign-out-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__sign-out {
+      width: 25%;
     }
   }
 }
@@ -281,6 +336,8 @@ a {
     margin: auto;
 
     background: transparent;
+
+    animation: unblur 1s ease-out;
   }
 
   :not(.sketch) {
@@ -296,7 +353,7 @@ a {
     font-size: 10vmin;
     letter-spacing: 1vw;
 
-    animation: stretch 1000ms ease-out;
+    animation: stretch 1s ease-out;
   }
 
   &__title-inner {
@@ -441,14 +498,6 @@ a {
 
       width: 40%;
 
-      background: linear-gradient(90deg,
-      $option-col-1 0%,
-      $option-col-2 100%);
-      color: $txt-col;
-
-      border-radius: 10px;
-      font-size: 1.25vw;
-
       &:active {
         color: $txt-col;
       }
@@ -473,6 +522,13 @@ a {
 }
 
 @media (hover: hover) {
+  .button {
+    &:hover {
+      // letter-spacing: 3px;
+      filter: hue-rotate(90deg);
+    }
+  }
+
   .navbar {
     // opacity: 0.75;
 
@@ -568,7 +624,12 @@ a {
       &:hover {
         box-shadow: $hover-shad;
         transform: scale(1.01);
-        filter: hue-rotate(90deg);
+
+        .options__option {
+          &__title-container, &__features-container {
+            filter: hue-rotate(90deg);
+          }
+        }
 
         .options__option__title-container {
           letter-spacing: 0.5vw;
@@ -693,10 +754,16 @@ a {
       }
     }
   }
-} 
+}
 
 @media (prefers-reduced-motion: no-preference) {
   body * {
     transition: 0.25s ease-in-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body * {
+    animation: none !important;
   }
 }

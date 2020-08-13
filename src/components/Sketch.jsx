@@ -16,20 +16,20 @@ class Sketch extends React.Component {
         p.createCanvas(w, h, p.WEBGL);
         p.angleMode(p.DEGREES);
         
-        p.perspective(90, w / h, 0.1, 1000);
+        p.perspective(60, w / h, 0.1, 2500);
   
         let count = 4;
         let size = Math.min(w, h);
         for (let i = 0; i < count; i++) {
-          let x = Math.sin((i / count) * Math.PI * 2 + Math.PI / 4) * w / 2;
-          let y = Math.cos((i / count) * Math.PI * 2 + Math.PI / 4) * h / 2;
+          let x = Math.sin((i / count) * Math.PI * 2 + Math.PI / 4) * w / 3;
+          let y = Math.cos((i / count) * Math.PI * 2 + Math.PI / 4) * h / 3;
   
           boxes.push(new Box(
             p,
             x, y, 0,
-            size / 6,
-            size / 6,
-            size / 6,
+            size / 10,
+            size / 10,
+            size / 10,
             w, h,
           ));
         }
@@ -39,6 +39,10 @@ class Sketch extends React.Component {
         p.background(0, 0, 0, 0);
         
         p.lights();
+        // p.ambientLight(128, 128, 128);
+        // p.directionalLight(255, 0, 76, 0, 1, 0);
+        // p.directionalLight(255, 217, 0, 0, -1, 0);
+        // p.directionalLight(64, 64, 64, 0, 0, -1);
         for (let box of boxes) {
           box.render(p);
         }
@@ -71,7 +75,14 @@ class Box {
     let x = p.frameCount / 5;
 
     p.noStroke();
-    p.specularMaterial(255, 0, 76);
+    // p.specularMaterial(255, 255, 255);
+    p.ambientMaterial(255, 0, 76);
+    // p.normalMaterial();
+    // if (this.pos.y > 0) {
+    //   p.ambientMaterial(255, 217, 0);
+    // } else {
+    //   p.ambientMaterial(255, 0, 76);
+    // }
     p.push();
       p.translate(this.pos);
       p.rotateX(p.noise(this.pos.x * 1000 + x / 100) * 1000);
