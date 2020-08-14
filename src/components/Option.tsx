@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 
 const CTAButton = lazy(() => import('./CTAButton'));
 
-function Option(props) {
+function Option(props: { title: String; subtitle: String; children: React.ReactNode; price: number; }) {
   return (
     <span className="options__option">
       <div className="options__option__title-container">

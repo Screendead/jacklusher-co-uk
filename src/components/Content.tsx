@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Content(props) {
+function Content(props: { children: React.ReactNode; }) {
   return (
     <div className="content">
       {props.children}

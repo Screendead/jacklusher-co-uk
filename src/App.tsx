@@ -1,12 +1,20 @@
 import React, { lazy, Suspense } from 'react';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/performance';
 import 'firebase/auth';
 import 'firebaseui';
 
 import './App.scss';
-import { faEllipsisH, faUserCircle, faUserAstronaut, faSignOutAlt, faCogs, faSpaceShuttle, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsisH,
+  faUserCircle,
+  faUserAstronaut,
+  faSignOutAlt,
+  faCogs,
+  faSpaceShuttle,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 
 const StyledFirebaseAuth = lazy(() => import('react-firebaseui/StyledFirebaseAuth'));
 
@@ -42,14 +50,23 @@ firebase.initializeApp(firebaseConfig);
 firebase.performance();
 firebase.analytics();
 
-class App extends React.Component {
-  constructor(props) {
+interface Props {}
+
+interface State {
+  loggedIn: boolean,
+  userModal: boolean,
+}
+
+class App extends React.Component<Props, State> {
+  auth: firebase.auth.Auth;
+
+  constructor(props: Readonly<Props>) {
     super(props);
 
     this.state = {
       loggedIn: false,
       userModal: false,
-    }
+    };
 
     this.auth = firebase.auth();
     this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
@@ -62,10 +79,11 @@ class App extends React.Component {
       this.setState({ userModal: true });
   }
 
-  render() {
-    let details;
-    let detailsButton;
-    if (this.state.loggedIn) {
+  render(): JSX.Element {
+    let details: JSX.Element;
+    let detailsButton: JSX.Element;
+
+    if (this.state.loggedIn && this.auth.currentUser != null) {
       details = (
         <div className="user-modal__content user-modal__content--logged-in">
           <div className="user-modal__content__heading">
@@ -154,20 +172,20 @@ class App extends React.Component {
           </Header>
           <Content>
             <Options>
-              <Option title="Level 1" subtitle="Personal" price="39">
+              <Option title="Level 1" subtitle="Personal" price={39}>
                 <Feature content="Action taken on your request within 2 working days" />
                 <Feature content="Solution within 10 working days" />
                 <Feature content="Contact 10:00-17:00 Monday-Friday" />
                 <Feature content="Email + phone support" />
                 <Feature content="Support for personal blogs" />
               </Option>
-              <Option title="Level 2" subtitle="eCommerce" price="79">
+              <Option title="Level 2" subtitle="eCommerce" price={79}>
                 <Feature content="Action on your request within 1 working day" />
                 <Feature content="Solution within 5 working days" />
                 <Feature content="Priority contact from 09:00-19:00 Monday-Saturday" />
                 <Feature content="Support for eCommerce sites" />
               </Option>
-              <Option title="Level 3" subtitle="Bespoke" price="119">
+              <Option title="Level 3" subtitle="Bespoke" price={119}>
                 <Feature content="Immediate action on urgent requests" />
                 <Feature content="Solution within 24h" />
                 <Feature content="Mon-Sun emergency phone support" />

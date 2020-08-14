@@ -105,26 +105,23 @@ a {
   align-items: center;
   justify-content: center;
 
-  width: 5vmin;
-  height: 5vmin;
+  height: 5vh;
+  min-width: 5vh;
+  min-height: 5vh;
 
   padding: 0;
-
 
   background: linear-gradient(90deg,
   $option-col-1 0%,
   $option-col-2 100%);
   color: $txt-col;
 
-  color: $contrast-col-1;
   border: none;
-
+  border-radius: 2.5vh;
   box-shadow: $box-shad;
 
-  border-radius: 2.5vmin;
-  font-size: 1.25vw;
-  // font-size: 3vmin;
-  line-height: 3vmin;
+  font-size: 2vh;
+  line-height: 2vh;
 
   cursor: pointer;
 }
@@ -496,7 +493,7 @@ a {
       align-items: center;
       justify-content: center;
 
-      width: 40%;
+      width: 50%;
 
       &:active {
         color: $txt-col;
@@ -714,19 +711,19 @@ a {
       &__features-container {
         height: 30vh;
       }
-      
-      &__features, &__cta {
-        font-size: 1.25vw;
-      }
-
-      &__cta {
-        height: 5vh;
-      }
     }
   }
 }
 
 @media only screen and (max-width: 768px) {
+  .user-modal {
+    &__content {
+      &__sign-out {
+        width: 80%;
+      }
+    }
+  }
+
   .options {
     display: initial;
 
@@ -747,10 +744,6 @@ a {
 
       &__features {
         padding: 0;
-      }
-
-      &__cta {
-        height: 75%;
       }
     }
   }

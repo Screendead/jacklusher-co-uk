@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Footer(props) {
+function Footer(props: { children?: React.ReactNode; }) {
   return (
     <div className="footer">
       {props.children}

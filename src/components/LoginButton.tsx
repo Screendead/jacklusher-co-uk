@@ -4,7 +4,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const NavIcon = lazy(() => import('./NavIcon'));
 
-function LoginButton(props) {
+function LoginButton() {
   return (
     <>
       <span className="navbar__nav-button icon" id="user-button">

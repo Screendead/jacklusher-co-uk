@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@fortawesome/fontawesome-common-types": "^0.2.30",
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-brands-svg-icons": "^5.13.1",
     "@fortawesome/free-regular-svg-icons": "^5.13.1",
@@ -63,8 +64,9 @@
     "semver": "6.3.0",
     "source-map-explorer": "^2.4.2",
     "style-loader": "0.23.1",
-    "terser-webpack-plugin": "2.3.5",
+    "terser-webpack-plugin": "^4.1.0",
     "ts-pnp": "1.1.6",
+    "typescript": "^3.9.7",
     "url-loader": "2.3.0",
     "webpack": "4.42.0",
     "webpack-dev-server": "^3.11.0",
@@ -93,6 +95,7 @@
     ]
   },
   "devDependencies": {
+    "@types/p5": "^0.9.1",
     "closure-webpack-plugin": "^2.3.0",
     "google-closure-compiler": "^20200719.0.0"
   },

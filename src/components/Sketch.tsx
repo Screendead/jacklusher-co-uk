@@ -1,16 +1,24 @@
 import React from 'react';
 import p5 from 'p5';
 
-class Sketch extends React.Component {
-  constructor(props) {
+interface Props {
+
+}
+
+class Sketch extends React.Component<Props> {
+  reference: React.RefObject<HTMLDivElement>;
+  sketch: (p: any) => void;
+  p5!: p5;
+
+  constructor(props: Readonly<{}>) {
     super(props);
 
     this.reference = React.createRef();
     this.sketch = (p) => {
-      const w = document.documentElement.style.getPropertyValue('--vw').replace('px', '') * 100;
-      const h = document.documentElement.style.getPropertyValue('--vh').replace('px', '') * 100;
+      const w = (document.documentElement.style.getPropertyValue('--vw').replace('px', '') as unknown as number) * 100;
+      const h = (document.documentElement.style.getPropertyValue('--vh').replace('px', '') as unknown as number) * 100;
   
-      let boxes = []; 
+      let boxes: Box[] = []; 
     
       p.setup = () => {
         p.createCanvas(w, h, p.WEBGL);
@@ -51,7 +59,7 @@ class Sketch extends React.Component {
   }
 
   componentDidMount() {
-    this.p5 = new p5(this.sketch, this.reference.current)
+    this.p5 = new p5(this.sketch, this.reference.current!);
   }
 
   render() {
@@ -62,7 +70,22 @@ class Sketch extends React.Component {
 }
 
 class Box {
-  constructor(p, x, y, z, w, h, d, sw, sh) {
+  pos: p5.Vector;
+  w: number;
+  h: number;
+  d: number;
+  sw: number;
+  sh: number;
+
+  constructor(p: p5,
+    x: number,
+    y: number,
+    z: number,
+    w: number,
+    h: number,
+    d: number,
+    sw: number,
+    sh: number) {
     this.pos = p.createVector(x, y, z);
     this.w = w;
     this.h = h;
@@ -71,7 +94,7 @@ class Box {
     this.sh = sh;
   }
 
-  render(p) {
+  render(p: p5) {
     let x = p.frameCount / 5;
 
     p.noStroke();
