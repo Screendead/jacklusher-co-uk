@@ -1,8 +1,8 @@
-import React, { lazy } from 'react';
+import React from 'react';
 
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-const HeaderIcon = lazy(() => import('./HeaderIcon'));
+import HeaderIcon from './HeaderIcon';
 
 function DownNav() {
   return (

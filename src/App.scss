@@ -1,5 +1,6 @@
 :root {
-  --vh: 1vh
+  --vw: 1vw;
+  --vh: 1vh;
 }
 
 $bg-col: #ffffff;
@@ -82,7 +83,7 @@ a {
   width: 100%;
   height: 100%;
   
-  z-index: 2;
+  z-index: -1;
   
   background: linear-gradient(180deg,
       $header-col-1 0%,

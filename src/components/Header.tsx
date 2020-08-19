@@ -1,12 +1,10 @@
-import React, { lazy } from 'react';
+import React from 'react';
 
-// const Sketch = lazy(() => import('./Sketch'));
-const DownNav = lazy(() => import('./DownNav'));
+import DownNav from './DownNav';
 
 function Header(props: { children: React.ReactNode; }) {
   return (
     <div className="header">
-      {/* <Sketch /> */}
       <span className="header__title-inner">{props.children}</span>
       <DownNav />
     </div>

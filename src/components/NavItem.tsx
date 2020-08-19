@@ -1,13 +1,13 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-const NavIcon = lazy(() => import('./NavIcon'));
+import NavIcon from './NavIcon';
 
 function NavItem(props: { icon: IconDefinition; }) {
   return (
-    <span className="navbar__nav-item">
+    <li className="navbar__nav-item">
       <NavIcon name={props.icon} />
-    </span>
+    </li>
   );
 }
 

@@ -24,7 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-// const ClosurePlugin = require('closure-webpack-plugin');
+const ClosurePlugin = require('closure-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -195,8 +195,16 @@ module.exports = function(webpackEnv) {
       globalObject: 'this',
     },
     optimization: {
+      concatenateModules: false,
       minimize: isEnvProduction,
       minimizer: [
+        // new ClosurePlugin({
+        //   platform: 'native',
+        //   mode: 'AGGRESSIVE_BUNDLE',
+        //   // mode: 'STANDARD',
+        // }, {
+        //   compilation_level: 'ADVANCED'
+        // }),
         // This is only used in production mode
         new TerserPlugin({
           terserOptions: {
@@ -209,7 +217,7 @@ module.exports = function(webpackEnv) {
               ecma: 8,
             },
             compress: {
-              ecma: 5,
+              ecma: 3,
               warnings: false,
               // Disabled because of an issue with Uglify breaking seemingly valid code:
               // https://github.com/facebook/create-react-app/issues/2376
@@ -237,7 +245,7 @@ module.exports = function(webpackEnv) {
             keep_classnames: isEnvProductionProfile,
             keep_fnames: isEnvProductionProfile,
             output: {
-              ecma: 5,
+              ecma: 3,
               comments: false,
               // Turned on because emoji and regex is not minified properly using default
               // https://github.com/facebook/create-react-app/issues/2488
@@ -517,6 +525,14 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      // isEnvProduction &&
+      //   new ClosurePlugin({
+      //     platform: 'native',
+      //     mode: 'AGGRESSIVE_BUNDLE',
+      //     // mode: 'STANDARD',
+      //   }, {
+      //     compilation_level: 'ADVANCED'
+      //   }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -658,14 +674,6 @@ module.exports = function(webpackEnv) {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
-        // isEnvProduction &&
-        //   new ClosurePlugin({
-        //     platform: 'native',
-        //     // mode: 'AGGRESSIVE_BUNDLE',
-        //     mode: 'STANDARD',
-        //   }, {
-        //     // compilation_level: 'ADVANCED'
-        //   }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.

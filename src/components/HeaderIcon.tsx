@@ -1,7 +1,7 @@
+import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import React, { lazy } from 'react';
 
-const Icon = lazy(() => import('./Icon'));
+import Icon from './Icon';
 
 function HeaderIcon(props: { name: IconDefinition; }) {
   return (

@@ -16,18 +16,19 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
-const StyledFirebaseAuth = lazy(() => import('react-firebaseui/StyledFirebaseAuth'));
+import ProfilePicture from './components/ProfilePicture';
+import Icon from './components/Icon';
+import NavBar from './components/NavBar';
+import NavSection from './components/NavSection';
+import NavItem from './components/NavItem';
+import NavIcon from './components/NavIcon';
+import NavButton from './components/NavButton';
+import Header from './components/Header';
+import Sketch from './components/Sketch';
+import HeaderIcon from './components/HeaderIcon';
 
-const ProfilePicture = lazy(() => import('./components/ProfilePicture'));
-const Icon = lazy(() => import('./components/Icon'));
-const NavBar = lazy(() => import('./components/NavBar'));
-const NavSection = lazy(() => import('./components/NavSection'));
-const NavItem = lazy(() => import('./components/NavItem'));
-const NavIcon = lazy(() => import('./components/NavIcon'));
-const NavButton = lazy(() => import('./components/NavButton'));
-const Header = lazy(() => import('./components/Header'));
-const Sketch = lazy(() => import('./components/Sketch'));
-const HeaderIcon = lazy(() => import('./components/HeaderIcon'));
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
 const Content = lazy(() => import('./components/Content'));
 const Options = lazy(() => import('./components/Options'));
 const Option = lazy(() => import('./components/Option'));
@@ -148,7 +149,7 @@ class App extends React.Component<Props, State> {
     }
 
     return (
-      <Suspense fallback={(<div className="loader"></div>)}>
+      <>
         { this.state.userModal &&
           <div className="user-modal">{details}</div>
         }
@@ -158,7 +159,7 @@ class App extends React.Component<Props, State> {
               <NavItem icon={faEllipsisH} />
             </NavSection>
             <NavSection buttons>
-              <span className="navbar__nav-button icon">{detailsButton}</span>
+              <li className="navbar__nav-button icon">{detailsButton}</li>
               <NavButton icon={faCogs} title="Page Settings" action={() => alert('Settings')} />
             </NavSection>
           </NavBar>
@@ -170,33 +171,35 @@ class App extends React.Component<Props, State> {
             <h1 className="header__title">Stratospheric</h1>
             <h2 className="header__subtitle">Get yourself some rocket fuel.</h2>
           </Header>
-          <Content>
-            <Options>
-              <Option title="Level 1" subtitle="Personal" price={39}>
-                <Feature content="Action taken on your request within 2 working days" />
-                <Feature content="Solution within 10 working days" />
-                <Feature content="Contact 10:00-17:00 Monday-Friday" />
-                <Feature content="Email + phone support" />
-                <Feature content="Support for personal blogs" />
-              </Option>
-              <Option title="Level 2" subtitle="eCommerce" price={79}>
-                <Feature content="Action on your request within 1 working day" />
-                <Feature content="Solution within 5 working days" />
-                <Feature content="Priority contact from 09:00-19:00 Monday-Saturday" />
-                <Feature content="Support for eCommerce sites" />
-              </Option>
-              <Option title="Level 3" subtitle="Bespoke" price={119}>
-                <Feature content="Immediate action on urgent requests" />
-                <Feature content="Solution within 24h" />
-                <Feature content="Mon-Sun emergency phone support" />
-                <Feature content="Video call support via Skype or Zoom (for screen-sharing etc.)" />
-                <Feature content="Tailored service to meet your site's needs" />
-              </Option>
-            </Options>
-          </Content>
-          <Footer></Footer>
+          <Suspense fallback={(<div className="loader"></div>)}>
+            <Content>
+              <Options>
+                <Option title="Level 1" subtitle="Personal" price={39}>
+                  <Feature content="Action taken on your request within 2 working days" />
+                  <Feature content="Solution within 10 working days" />
+                  <Feature content="Contact 10:00-17:00 Monday-Friday" />
+                  <Feature content="Email + phone support" />
+                  <Feature content="Support for personal blogs" />
+                </Option>
+                <Option title="Level 2" subtitle="eCommerce" price={79}>
+                  <Feature content="Action on your request within 1 working day" />
+                  <Feature content="Solution within 5 working days" />
+                  <Feature content="Priority contact from 09:00-19:00 Monday-Saturday" />
+                  <Feature content="Support for eCommerce sites" />
+                </Option>
+                <Option title="Level 3" subtitle="Bespoke" price={119}>
+                  <Feature content="Immediate action on urgent requests" />
+                  <Feature content="Solution within 24h" />
+                  <Feature content="Mon-Sun emergency phone support" />
+                  <Feature content="Video call support via Skype or Zoom (for screen-sharing etc.)" />
+                  <Feature content="Tailored service to meet your site's needs" />
+                </Option>
+              </Options>
+            </Content>
+            <Footer></Footer>
+          </Suspense>
         </div>
-      </Suspense>
+      </>
     );
   }
 }
